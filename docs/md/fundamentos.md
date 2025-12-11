@@ -58,14 +58,14 @@ Usamos `4 espacios en blanco` para crear una línea de código
 
 ## IMAGENES
 
-Podemos poner imagenes de 2 formas:
-**FORMA 1:** Usando la siguiente estructura: `![Texto alternativo](/ruta/a/la/imagen.jpg)`
-
+Podemos poner imagenes de 2 formas:  
+**FORMA 1:**  
+Usando la siguiente estructura: `![Texto alternativo](/ruta/a/la/imagen.jpg)`
 ![Imagen](./images/fondo7.jpg)
 
 **FORMA 2**  
-Usando la estructura `![HOLA][img]`.
-Y luego poniendo la asociación: `[img]: ./images/fondo7.jpg`
+Usando la estructura `![HOLA][img]`.  
+Y luego poniendo la asociación: `[img]: ./images/fondo7.jpg`  
 Se pueden mostrar imagenes:
 ![hola][img]
 
@@ -73,7 +73,7 @@ Se pueden mostrar imagenes:
 
 ## LINKS AUTOMÁTICOS
 
-`<link/url>` pone el link con la url y todo.
+`<link/url>` pone el link con la url y todo.  
 Ejemplo: <https://youtube.com>
 
 ## CANCELAR MK
