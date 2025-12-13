@@ -77,7 +77,7 @@ Llamamos al módulo colocando el nombre del módulo y la función que vamos a us
 
 Para crear paquetes creamos una carpeta que va a contener los módulos y el archivo `__init__.py`
 Este archivo se encarga de convertir una carpeta en un paquete  
-Los paquetes tienen esta estructura:
+Los paquetes tienen esta estructura:  
 ![img](../md/images/paquete.png)
 
 Luego el archivo `__init__.py` recibe los `import` de los otros archivos creando el paquete.  
