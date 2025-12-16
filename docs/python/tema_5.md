@@ -155,7 +155,9 @@ Apuntes de ejercicios
 ## MYSQL
 
 Para funcionar sin problemas instalamos este paquete > `py -m pip install mysql-connector-python`  
+Tengo los ejemplos del pdf y los ejemplos
 
+----
 CONEXIÓN  
 
 ~~~python
