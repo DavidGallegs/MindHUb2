@@ -38,7 +38,7 @@ Con estetica puede añadir espacios en blanco entre los simbolos
 
 *Cursiva* → `*texto*` o `_texto_`
 **Negrita** → `**Texto**` o `__Texto__`
-~~Tachado~~ → `~~Tachado~~ `
+~~Tachado~~ → `~~Tachado~~`
 
 ## LINKS Y ENLACES
 
