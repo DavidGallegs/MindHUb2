@@ -26,7 +26,8 @@ Las listas ordenadas y desordenadas se pueden anidadar y mezclar.
 
 ## CÓDIGO BLOQUE
 
-Abres y cierras con  `~~~`, todo el texto interior se comportará como código.
+Abres y cierras con  `~~~`, todo el texto interior se comportará como código.  
+Para indicar el lenguaje usamos `~~~lenguaje` en la primera línea.  
 
 ## REGLAS HORIZONTALES
 
@@ -37,6 +38,7 @@ Con estetica puede añadir espacios en blanco entre los simbolos
 
 *Cursiva* → `*texto*` o `_texto_`
 **Negrita** → `**Texto**` o `__Texto__`
+~~Tachado~~ → `~~Tachado~~ `
 
 ## LINKS Y ENLACES
 
@@ -87,3 +89,17 @@ Poniendo una `\` delante del Markdown, lo cancela.
 
 Colocando `|` podemos crear tablas, donde poniendo `|-----|` creamos las cabezeras.  
 Y las filas se crean extensiendo la tabla en las siguientes líneas con `|`  
+Para centrar todas las filas usamos `:---:`  
+Pero si queremos alinear a la izquierda o derecha es `:---` o `---:`  
+
+## LISTAS DE TAREAS
+
+Podemos crear listas de tareas con `- [ ] Texto`  
+Para marcar la tarea es: `- [x] Texto`
+
+- [ ] Hola
+- [x] Hola
+
+## HTML EN MARKDOWN
+
+Podemos usar HTML puro en los documentos `.md`
