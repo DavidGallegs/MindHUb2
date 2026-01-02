@@ -2,12 +2,17 @@
 
 ## SELECT
 
-La sentencia `SELECT` sirve para seleccionar campos.  
-Para seleccionar todos los campos de una tabla usamos `*`
+La sentencia `SELECT` sirve para seleccionar columnas.  
+Para seleccionar todos las columnas de una tabla usamos `*`
     SELECT * FROM empleados;  
 
+Las columnas pueden tener `etiquetas` que se usa colocando una plabra entre comillas.  
+    SELECT nompro "Nombre Profesor", salpro Salario from profesores;
+
+Podemos crear frases usando `|''|` por ejemplo:
+    SELECT nompro || 'TIENE LA ESPECIALIDAD EN ' || esppro ESPECIALIDAD from profesores;
+
 Para evitar repetir registros usamos `DISTINCT`  
-Y para tener un contador de registros únicos en la tabla usamos `COUNT(DISTINCT)`  
     SELECT COUNT(DISTINCT nombre) FROM empleados;  
 
 ## WHERE
@@ -85,4 +90,35 @@ INNER JOIN departamento AS d ON d.cod_dpto = e.cod_dpto
 GROUP BY e.cod_dpto, d.nombre;
 ~~~
 
-<!-- https://www.w3schools.com/mysql/mysql_having.asp -->
+## HAVING
+
+La cláusula `HAVING` se usa para filtrar grupos creados con `GROUP BY`,
+usando condiciones sobre funciones de agregación.
+
+~~~sql
+SELECT e.cod_dpto, d.nombre AS "Nombre Departametno", COUNT(*) AS "Cantidad de empleados"  
+FROM empleado AS e
+INNER JOIN departamento AS d ON d.cod_dpto = e.cod_dpto
+GROUP BY e.cod_dpto, d.nombre
+HAVING COUNT(*) >= 2;
+~~~
+
+## ORDEN CORRECTO EN UNA CONSULTA
+
+1. `SELECT`
+2. `FROM`
+3. `WHERE`
+4. `GROUP BY`
+5. `HAVING`
+6. `ORDER BY`
+
+~~~sql
+SELECT d.nombre AS departamento, COUNT(e.cod_empleado) AS total_empleados
+FROM empleado AS e
+INNER JOIN departamento AS d
+ON e.cod_dpto = d.cod_dpto
+WHERE e.salario > 1200
+GROUP BY d.nombre
+HAVING COUNT(e.cod_empleado) >= 2
+ORDER BY total_empleados DESC;
+~~~
