@@ -11,8 +11,8 @@ Se pueden encadenar múltiples `INNER JOIN` para unir varias tablas.
 ~~~sql
 -- Empleados con departamento (Muestra todos los empleados menos Lucía que no tiene departamento)
 SELECT e.nombre as "Nombre Empleado", d.cod_dpto as "Departamento" 
-FROM empleado AS e
-INNER JOIN departamento AS d ON d.cod_dpto = e.cod_dpto;
+FROM empleado e
+INNER JOIN departamento d ON d.cod_dpto = e.cod_dpto;
 
 -- Empleados con departamento y el departamento con empresa
 SELECT e.nombre AS empleado, d.nombre AS departamento, em.nombre AS empresa
@@ -80,17 +80,53 @@ Se utiliza para comparar filas dentro de la misma tabla.
 
 ~~~sql
 -- Empareja cada empleado con el elmpleado cuyo codigo coincide con su jefe_id (INNER: Muestra empleados con jefes)
-SELECT e.nombre AS cod_empleado, j.nombre AS jefe 
-FROM empleado AS e
-INNER JOIN empleado AS j ON e.jefe_id = j.cod_empleado
+-- No hay NULL
+SELECT  e.ename "Nombre Trabajador", 
+        e.empno "Código Empleado",
+        j.ename "Nombre Jefe", 
+        j.empno "Código Jefe" 
+FROM emp e
+INNER JOIN emp j ON e.mgr = j.empno;
 
--- LEFT JOIN: Muestra empleados con o sin jefes.
-SELECT e.nombre AS cod_empleado, j.nombre AS jefe 
-FROM empleado AS e
-LEFT JOIN empleado AS j ON e.jefe_id = j.cod_empleado
+-- LEFT JOIN: Muestra todos los empleados incluyendo los que no tiene JEFE
+SELECT  e.ename "Nombre Trabajador", 
+        e.empno "Código Empleado",
+        j.ename "Nombre Jefe", 
+        j.empno "Código Jefe" 
+FROM emp e
+LEFT JOIN emp j ON e.mgr = j.empno;
 
 -- RIGHT JOIN: Muestran todos los jefes, aunque no tengan nadie a su cargo, por eso NULL empleado y crea falsos jefes.
-SELECT e.nombre AS cod_empleado, j.nombre AS jefe 
-FROM empleado AS e
-RIGHT JOIN empleado AS j ON e.jefe_id = j.cod_empleado
+SELECT  e.ename "Nombre Trabajador", 
+        e.empno "Código Empleado",
+        j.ename "Nombre Jefe", 
+        j.empno "Código Jefe" 
+FROM emp e
+RIGHT JOIN emp j ON e.mgr = j.empno;
+
+~~~
+
+~~~sql
+-- Relación de un trabajador con compañeros del mismo departamento
+SELECT e.ename, e.deptno, em.ename FROM emp e
+INNER JOIN emp em ON e.deptno = em.deptno
+WHERE e.ename = 'SMITH' AND em.ename <> e.ename;
+~~~
+
+~~~sql
+-- Relación de 3 tablas
+SELECT e.ename, e.job, d.dname, e.sal, s.grade FROM emp e
+INNER JOIN dept d ON d.deptno = e.deptno
+INNER JOIN salgrade s ON e.sal BETWEEN s.losal AND s.hisal;
+
+-- SELF
+SELECT e.ename,
+       e.hiredate
+FROM emp e
+INNER JOIN emp b ON b.ename = 'BLAKE'
+WHERE e.hiredate > b.hiredate;
+
+SELECT e.ename, e.hiredate, j.ename, j.hiredate FROM emp e
+INNER JOIN emp j ON e.mgr = j.empno
+WHERE e.hiredate < j.hiredate;
 ~~~

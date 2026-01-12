@@ -45,6 +45,8 @@ La sentencia `WHERE` sirve para clasificar o buscar registros específicos.
 - Rango de valores: Tenemos `BETWEEN` junto con `AND` Se puede usar con valores numéricos y fechas.  
     `WHERE salario BETWEEN 1800 AND 2200`
 
+- Podemos limitar las filas con `WHERE ROWNUM <= n`
+
 - Operadores lógicos: `AND`, `OR`, `NOT`
 
 | USO DE NOT | EXPLICACIÓN |
@@ -75,7 +77,7 @@ ORDER BY nombre ASC;
 | `CONCAT(CAMPO\|Expresión, CAMPO\|Expresión)` | Concatena 2 valores, ya sean campos o cadenas |
 | `SUBSTR(CAMPO,Inicio,Longitud)` | Exrae subcadenas (Inicio no es 0) |
 | `LENGTH(CAMPO)` | Devuelve la longitud de la cadena |
-| `INSTR(CAMPO,'caracter')` | Devuelve la posición del caractre que se busca |
+| `INSTR(CAMPO,'caracter')` | Devuelve la posición del caracter que se busca |
 | `LPAD(CAMPO,longitud,'caracter')` | Coloca a la izquieda un caracter hasta rellenar. Funciona si longitud > Length(campo) |
 | `RPAD(CAMPO,longitud,'caracter')` | Coloca a la derecha un caracter hasta rellenar. Funciona si longitud > Length(campo) |
 | `REPLACE(CAMPO,'caracter','remplazo')` | Remplaza subcadeas por otras subcadenas |
@@ -110,7 +112,7 @@ La resta entre fechas devuelve la diferencia de días.
 | `LAST_DAY(F)` | Devuelve el último día de ese mes |
 | `TRUNC(F,'FORMAT')` | Trunca al formato indicado |
 | `ROUND(F,'FORMAT')` | Redondea al formato indicado |
-| `EXTRACT('DAY \| MONTH \| YEAR'FROM CAMPO)` | Extrae un valor de la fecha |
+| `EXTRACT(DAY \| MONTH \| YEARFROM CAMPO)` | Extrae un valor de la fecha |
 | `TO_CHAR(F,'FORMAT')` | Convierte una fecha a una cadena de otro formato |
 
 - Para el `TO_CHAR` tenemos los formatos de: `Y,YY,YYY,YYY, YEAR`, `MM,MON,MONTH`,`DY,DAY,SYEAR,DD,DDD`
@@ -264,4 +266,48 @@ HAVING COUNT(e.cod_empleado) >= 2
 ORDER BY total_empleados DESC;
 ~~~
 
-<!--https://www.w3schools.com/mysql/mysql_exists.asp -->
+## EJEMPLOS DE AYUDA
+
+~~~sql
+-- LOPEZ, JUAN (Saca el apellido)
+SELECT nomem
+FROM temple
+WHERE LENGTH(SUBSTR(nomem, 1, INSTR(nomem, ',')-1)) >= 6
+ORDER BY nomem ASC;
+
+--(Saca el nombre)
+SELECT nomem
+FROM temple
+WHERE LENGTH(TRIM(SUBSTR(nomem, INSTR(nomem, ',')+1))) >= 6
+ORDER BY nomem ASC;
+~~~
+
+~~~sql
+SELECT SYSDATE FROM SYS.DUAL;
+~~~
+
+~~~sql
+-- Recordar Tipos para pasar Number a char y luego cambiar el valor
+SELECT ename,
+       NVL(TO_CHAR(comm), 'No Comisión') AS "COMISIÓN"
+FROM emp;
+~~~
+
+~~~sql
+-- Superior  una fecha
+SELECT nomem, salar
+FROM temple
+WHERE fecin > TO_DATE('01/01/2001', 'DD/MM/YYYY')
+ORDER BY nomem ASC;
+~~~
+
+~~~sql
+-- Obetner tiempo trabajado
+SELECT nomem,
+       TRUNC(MONTHS_BETWEEN(SYSDATE, fecin)/12) || ' años, ' ||
+       MOD(TRUNC(MONTHS_BETWEEN(SYSDATE, fecin)), 12) || ' meses, ' ||
+       TRUNC(SYSDATE - ADD_MONTHS(fecin, TRUNC(MONTHS_BETWEEN(SYSDATE, fecin)))) || ' días' AS tiempo_empresa
+FROM temple
+WHERE numde IN (110,111)
+ORDER BY nomem ASC;
+~~~
