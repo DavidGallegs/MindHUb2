@@ -159,3 +159,71 @@ const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Redacción de do
 ~~~
 
 ### RENDERIZACIÓN CONDICIONAL DE ELEMENTOS
+
+Al código podemos añadir operadordes de `if` para renderizar o no elementos
+
+~~~astro
+---
+const happy = true;
+const finished = false;
+const goal = 3;
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>About Page</title>
+    </head>
+    <body>
+        <p>Renderizar</p>
+        {happy && <p>¡Estoy feliz de aprender Astro!</p>}
+
+        {finished && <p>¡He terminado este tutorial!</p>}
+
+        {goal === 3 ? <p>Mi objetivo es terminar en 3 días.</p> : <p>Mi objetivo no son 3 días.</p>}
+    </body>
+</html>
+~~~
+
+La primera si se renderiza, la segunda no y la tercera es true por lo que se
+renderiza la primera opción. En el caso de la segunda, astro, entiende `true` como
+algo, entonces `algo = algo → Renderiza` en cambio `false` es nada, por lo que
+`nada = algo → No renderiza` porque no es igual.
+
+### ESTILIZAR ELEMENTOS WEB
+
+Podemos usar `style` dentro de astro y podemos meter variables dentro del style de esta forma
+
+~~~astro
+---
+const skillColor = "crimson";
+
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>About Page</title>
+
+        <style define:vars={{skillColor}}>
+        h1 {
+            color: purple;
+            font-size: 4rem;
+        }
+        .skill {
+            color: var(--skillColor);
+            font-weight: bold;
+        }
+        </style>
+    </head>
+</html>
+~~~
+
+### ESTILIZAR TODA LA WEB
+
+Es usar un archivo de css de la carpeta `src/styles` y luego
+usando dentro del `---` ponemos `import '../styles/<nombre>'`
